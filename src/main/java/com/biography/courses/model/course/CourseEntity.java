@@ -27,16 +27,26 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @NotBlank @NotEmpty @Size(min = 3, max = 50 )
+    @NotNull(message = "name is require")
+    @NotBlank(message = "name is require")
+    @NotEmpty(message = "name is require")
+    @Size(min = 3, max = 50 )
     private String name;
 
-    @NotNull @NotBlank @NotEmpty @Size(min = 10, max = 200 )
+    @NotNull(message = "description is require")
+    @NotBlank(message = "description is require")
+    @NotEmpty(message = "description is require")
+    @Size(min = 10, max = 200 )
     private String description;
 
-    @NotNull @NotBlank @NotEmpty @Size(min = 10, max = 150 )
+    @NotNull(message = "url is require")
+    @NotBlank(message = "url is require")
+    @NotEmpty(message = "url is require")
+    @Size(min = 10, max = 150 )
     private String url;
 
     @Enumerated(EnumType.STRING) @NotNull
+    @NotNull(message = " status is require")
     private Status status;
 
     @CreationTimestamp

@@ -1,7 +1,7 @@
 package com.biography.courses.service.impl;
 
 import com.biography.courses.dto.CourseDTO;
-import com.biography.courses.exceptions.StatusNullInvalidException;
+import com.biography.courses.exceptions.noCoursesWithThisNameFoundException;
 import com.biography.courses.model.course.CourseEntity;
 import com.biography.courses.repository.CourseRepository;
 import com.biography.courses.service.CourseService;
@@ -39,6 +39,16 @@ public class CourseServiceImpl implements CourseService {
         final CourseEntity courseEntity = courseRepository.save(courseDTO.toEntity());
 
         return courseEntity.toDTO();
+    }
+
+    @Override
+    public List<CourseDTO> searchByName(final String name) {
+
+        final List<CourseEntity> courseEntityList = courseRepository.findAllByName(name)
+                                                                    .orElseThrow(
+                                                                    ()-> new noCoursesWithThisNameFoundException("Não encontramos nenhum curso com este nome"));
+
+        return CourseDTO.listCourseEntityToDTO(courseEntityList);
     }
 
 
