@@ -38,5 +38,4 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity(exceptionResponse, HttpStatus.FOUND);
     }
 
-
 }

@@ -39,14 +39,14 @@ public class CourseEntity {
     @Size(min = 10, max = 200 )
     private String description;
 
-    @NotNull(message = "url is require")
-    @NotBlank(message = "url is require")
-    @NotEmpty(message = "url is require")
-    @Size(min = 10, max = 150 )
+    @NotNull(message = "description is require")
+    @NotBlank(message = "description is require")
+    @NotEmpty(message = "description is require")
+    @Size(min = 10, max = 150)
     private String url;
 
-    @Enumerated(EnumType.STRING) @NotNull
-    @NotNull(message = " status is require")
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "status is require")
     private Status status;
 
     @CreationTimestamp
