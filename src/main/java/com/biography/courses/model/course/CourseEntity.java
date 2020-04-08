@@ -1,5 +1,6 @@
 package com.biography.courses.model.course;
 
+import com.biography.courses.dto.CourseDTO;
 import com.biography.courses.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 
 @Entity
+@Table(name = "course")
 public class CourseEntity {
 
     @Id
@@ -34,7 +36,7 @@ public class CourseEntity {
     @NotNull @NotBlank @NotEmpty @Size(min = 10, max = 150 )
     private String url;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) @NotNull
     private Status status;
 
     @CreationTimestamp
@@ -45,4 +47,14 @@ public class CourseEntity {
     @Column(name = "updated_at")
     private Date dateUpdated;
 
+    public CourseEntity(final String name, final String description, final String url,final Status status) {
+        this.name = name;
+        this.description = description;
+        this.url = url;
+        this.status = status;
+    }
+
+    public CourseDTO toDTO() {
+        return new CourseDTO(name,description,url,status);
+    }
 }

@@ -14,14 +14,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CourseDTO {
 
-    private Long id;
     private String name;
     private String description;
     private String url;
     private Status status;
 
     public CourseDTO(final CourseEntity courseEntity) {
-        this.id = courseEntity.getId();
         this.name = courseEntity.getName();
         this.description = courseEntity.getDescription();
         this.url = courseEntity.getUrl();
@@ -32,4 +30,7 @@ public class CourseDTO {
         return courseEntityList.stream().map(CourseDTO::new).collect(Collectors.toList());
     }
 
+    public CourseEntity toEntity() {
+        return new CourseEntity(name,description,url,status);
+    }
 }
