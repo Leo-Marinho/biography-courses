@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity,Long> {
 
-    @Query("SELECT c FROM Course c WHERE LOWER(c.email) = LOWER(:email)")
-    Optional<Object> findByUrl(@Param("url") String url);
+    @Query("SELECT c FROM CourseEntity c WHERE LOWER(c.url) = LOWER(:url)")
+    Optional<Object> findByUrl(@Param("url") final String url);
 }

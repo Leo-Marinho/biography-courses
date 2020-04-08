@@ -5,6 +5,7 @@ import com.biography.courses.exceptions.StatusNullInvalidException;
 import com.biography.courses.model.course.CourseEntity;
 import com.biography.courses.repository.CourseRepository;
 import com.biography.courses.service.CourseService;
+import com.biography.courses.service.validators.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Autowired
+    private Validator<CourseEntity> courseValidator;
+
     @Override
     public List<CourseDTO> searchAll() {
         log.info("GET=gettingAllCourses - buscando todos os cursos");
@@ -31,6 +35,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO save(final CourseDTO courseDTO) {
         log.info("POST=creatingNewCourse - criando novo curso");
 
+        courseValidator.validate(courseDTO.toEntity());
         final CourseEntity courseEntity = courseRepository.save(courseDTO.toEntity());
 
         return courseEntity.toDTO();
