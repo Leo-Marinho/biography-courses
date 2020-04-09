@@ -1,7 +1,7 @@
 package com.biography.courses.repository;
 
 import com.biography.courses.dto.CourseDTO;
-import com.biography.courses.dto.CourseStatusDTO;
+import com.biography.courses.dto.CourseResponseStatusDTO;
 import com.biography.courses.model.course.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +20,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity,Long> {
     Optional<List<CourseDTO>> findAllByName(final String name);
 
     @Query("SELECT new com.biography.courses.dto.CourseStatusDTO(c.name, c.status) FROM CourseEntity c WHERE c.status = UPPER(:status)")
-    List<CourseStatusDTO> findByStatus(final String status);
+    List<CourseResponseStatusDTO> findByStatus(final String status);
 }
 

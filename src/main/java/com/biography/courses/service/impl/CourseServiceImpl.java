@@ -1,7 +1,7 @@
 package com.biography.courses.service.impl;
 
 import com.biography.courses.dto.CourseDTO;
-import com.biography.courses.dto.CourseStatusDTO;
+import com.biography.courses.dto.CourseResponseStatusDTO;
 import com.biography.courses.exceptions.NoCoursesFoundWithThisNameException;
 import com.biography.courses.exceptions.StatusCourseInvalidException;
 import com.biography.courses.model.course.CourseEntity;
@@ -52,7 +52,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseStatusDTO> searchByStatus(final String status) {
+    public List<CourseResponseStatusDTO> searchByStatus(final String status) {
         log.info("GET=gettingCourseByStatus - buscando cursos por status");
 
         if (courseRepository.findByStatus(status).isEmpty()){

@@ -1,7 +1,7 @@
 package com.biography.courses.resource;
 
 import com.biography.courses.dto.CourseDTO;
-import com.biography.courses.dto.CourseStatusDTO;
+import com.biography.courses.dto.CourseResponseStatusDTO;
 import com.biography.courses.resource.request.CourseRequest;
 import com.biography.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CourseResource {
     }
 
     @GetMapping("/status/{status}")
-    private List<CourseStatusDTO> searchByStatus(@PathVariable final String status) {
+    private List<CourseResponseStatusDTO> searchByStatus(@PathVariable final String status) {
 
         return courseService.searchByStatus(status);
     }
