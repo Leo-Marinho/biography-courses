@@ -9,9 +9,14 @@ public interface CourseService {
 
     List<CourseDTO> searchAll();
 
-    CourseDTO save(final CourseDTO courseDTO);
-
     List<CourseDTO> searchByName(final String name);
 
     List<CourseStatusDTO> searchByStatus(final String status);
+
+    CourseDTO save(final CourseDTO courseDTO);
+
+    CourseDTO update(final Long id, CourseDTO courseDTO);
+
+    void deleteById(final Long id);
+
 }

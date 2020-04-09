@@ -68,4 +68,13 @@ public class CourseEntity {
     public CourseDTO toDTO() {
         return new CourseDTO(name,description,url,status);
     }
+
+    public CourseEntity merge(final CourseDTO courseDTO) {
+        this.name = courseDTO.getName();
+        this.description = courseDTO.getDescription();
+        this.url = courseDTO.getUrl();
+        this.status = courseDTO.getStatus();
+
+        return this;
+    }
 }

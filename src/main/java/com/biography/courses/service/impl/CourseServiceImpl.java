@@ -2,7 +2,7 @@ package com.biography.courses.service.impl;
 
 import com.biography.courses.dto.CourseDTO;
 import com.biography.courses.dto.CourseStatusDTO;
-import com.biography.courses.exceptions.NoCoursesFoundWithThisNameException;
+import com.biography.courses.exceptions.NotFoundException;
 import com.biography.courses.exceptions.StatusCourseInvalidException;
 import com.biography.courses.model.course.CourseEntity;
 import com.biography.courses.repository.CourseRepository;
@@ -35,21 +35,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO save(final CourseDTO courseDTO) {
-        log.info("POST=creatingNewCourse - criando novo curso");
-
-        courseValidator.validate(courseDTO.toEntity());
-        final CourseEntity courseEntity = courseRepository.save(courseDTO.toEntity());
-
-        return courseEntity.toDTO();
-    }
-
-    @Override
     public List<CourseDTO> searchByName(final String name) {
         log.info("GET=gettingCoursesByName - buscando cursos por nome");
 
         return courseRepository.findAllByName(name)
-                               .orElseThrow(() -> new NoCoursesFoundWithThisNameException("Nenhum curso encontrado") )
+                               .orElseThrow(() -> new NotFoundException("Nenhum curso encontrado") )
                                .stream()
                                .map(CourseDTO::new)
                                .collect(Collectors.toList());
@@ -64,6 +54,38 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return courseRepository.findByStatus(status);
+    }
+
+    @Override
+    public CourseDTO save(final CourseDTO courseDTO) {
+        log.info("POST=creatingNewCourse - criando novo curso");
+
+        courseValidator.validate(courseDTO.toEntity());
+        final CourseEntity courseEntity = courseRepository.save(courseDTO.toEntity());
+
+        return courseEntity.toDTO();
+    }
+
+    @Override
+    public CourseDTO update(final Long id,final CourseDTO courseDTO) {
+
+        courseValidator.validate(courseDTO.toEntity());
+
+        return courseRepository.findById(id)
+                               .map(CourseEntity -> CourseEntity.merge(courseDTO))
+                               .map(CourseEntity -> courseRepository.save(CourseEntity))
+                               .map(CourseDTO::new)
+                               .orElseThrow(() -> new NotFoundException("Id Invalido, digite novamente"));
+    }
+
+    @Override
+    public void deleteById(final Long id) {
+        log.info("DELETE=delletingCourseById - Deletando curso");
+
+        final CourseEntity courseEntity = courseRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Id Inexistente - verifique"));
+
+        courseRepository.delete(courseEntity);
     }
 
 }

@@ -2,7 +2,6 @@ package com.biography.courses.resource.handler;
 
 import com.biography.courses.exceptions.StatusCourseInvalidException;
 import com.biography.courses.exceptions.UrlExistException;
-import com.biography.courses.exceptions.NoCoursesFoundWithThisNameException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,13 +29,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
 
         return new ResponseEntity(exceptionResponse, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(NoCoursesFoundWithThisNameException.class)
-    public final ResponseEntity<Object> handleNoCoursesException(final NoCoursesFoundWithThisNameException ex, final WebRequest request){
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
-
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(StatusCourseInvalidException.class)

@@ -41,4 +41,18 @@ public class CourseResource {
         return courseService.save(courseDTO);
     }
 
+    @PutMapping("/{id}")
+    private CourseDTO updateCourse(@PathVariable Long id, @Valid @RequestBody CourseRequest courseRequest){
+
+        final CourseDTO courseDTO = courseRequest.toDTO();
+
+        return courseService.update(id,courseDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    private void deleteByid(@PathVariable Long id){
+
+        courseService.deleteById(id);
+    }
+
 }

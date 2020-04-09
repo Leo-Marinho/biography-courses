@@ -12,9 +12,4 @@ public class CourseStatusDTO {
     private String name;
     private Status status;
 
-    public CourseStatusDTO(final CourseEntity courseEntity) {
-        this.name = courseEntity.getName();
-        this.status = courseEntity.getStatus();
-    }
-
 }
