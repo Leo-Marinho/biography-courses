@@ -1,7 +1,7 @@
 package com.biography.courses.service;
 
 import com.biography.courses.dto.CourseDTO;
-import com.biography.courses.dto.CourseResponseStatusDTO;
+import com.biography.courses.dto.CourseStatusDTO;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface CourseService {
 
     List<CourseDTO> searchByName(final String name);
 
-    List<CourseResponseStatusDTO> searchByStatus(final String status);
+    List<CourseStatusDTO> searchByStatus(final String status);
 }

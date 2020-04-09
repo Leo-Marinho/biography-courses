@@ -1,6 +1,7 @@
 package com.biography.courses.model.course;
 
 import com.biography.courses.dto.CourseDTO;
+import com.biography.courses.dto.CourseStatusDTO;
 import com.biography.courses.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;

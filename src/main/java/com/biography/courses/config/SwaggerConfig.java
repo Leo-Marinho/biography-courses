@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .title("Courses Biography")
                 .description("Back-end Courses Biography")
                 .version("1.0.0")
-                .contact(new Contact("Ferreira", "https://github.com/Leo-Marinho",
+                .contact(new Contact("Leo Marinho", "https://github.com/Leo-Marinho",
                         "leomarinho.icloud@gmail.com"))
                 .build();
     }
