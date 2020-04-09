@@ -1,5 +1,7 @@
 package com.biography.courses.repository;
 
+import com.biography.courses.dto.CourseDTO;
+import com.biography.courses.dto.CourseStatusDTO;
 import com.biography.courses.model.course.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,10 +13,13 @@ import java.util.Optional;
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity,Long> {
 
-    @Query("SELECT c FROM CourseEntity c WHERE c.url = :url")
+    @Query("FROM CourseEntity c WHERE c.url = :url")
     Optional<Object> findByUrl(final String url);
 
-    @Query("SELECT c FROM CourseEntity c WHERE c.name LIKE %:name%")
-    Optional<List<CourseEntity>> findAllByName(final String name);
+    @Query("FROM CourseEntity c WHERE c.name LIKE %:name%")
+    Optional<List<CourseDTO>> findAllByName(final String name);
+
+    @Query("SELECT new com.biography.courses.dto.CourseStatusDTO(c.name, c.status) FROM CourseEntity c WHERE c.status = UPPER(:status)")
+    List<CourseStatusDTO> findByStatus(final String status);
 }
 

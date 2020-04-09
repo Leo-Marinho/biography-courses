@@ -33,4 +33,5 @@ public class CourseDTO {
     public CourseEntity toEntity() {
         return new CourseEntity(name,description,url,status);
     }
+
 }

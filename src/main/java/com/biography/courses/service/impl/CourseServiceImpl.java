@@ -1,7 +1,9 @@
 package com.biography.courses.service.impl;
 
 import com.biography.courses.dto.CourseDTO;
-import com.biography.courses.exceptions.noCoursesWithThisNameFoundException;
+import com.biography.courses.dto.CourseStatusDTO;
+import com.biography.courses.exceptions.NoCoursesFoundWithThisNameException;
+import com.biography.courses.exceptions.StatusCourseInvalidException;
 import com.biography.courses.model.course.CourseEntity;
 import com.biography.courses.repository.CourseRepository;
 import com.biography.courses.service.CourseService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 
@@ -43,13 +46,22 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseDTO> searchByName(final String name) {
+        log.info("GET=gettingCoursesByName - buscando cursos por nome");
 
-        final List<CourseEntity> courseEntityList = courseRepository.findAllByName(name)
-                                                                    .orElseThrow(
-                                                                    ()-> new noCoursesWithThisNameFoundException("Não encontramos nenhum curso com este nome"));
-
-        return CourseDTO.listCourseEntityToDTO(courseEntityList);
+        return courseRepository.findAllByName(name)
+                               .orElseThrow(() -> new NoCoursesFoundWithThisNameException("Nenhum Curso encontrado"));
     }
 
+    @Override
+    public List<CourseStatusDTO> searchByStatus(final String status) {
+        log.info("GET=gettingCourseByStatus - buscando cursos por status");
+
+        if (courseRepository.findByStatus(status).isEmpty()){
+
+            throw new StatusCourseInvalidException("Não encontramos cursos com este status");
+        }
+
+        return courseRepository.findByStatus(status);
+    }
 
 }
