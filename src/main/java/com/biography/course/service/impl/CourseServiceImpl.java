@@ -4,6 +4,7 @@ import com.biography.course.dto.CourseDTO;
 import com.biography.course.dto.CourseStatusDTO;
 import com.biography.course.exception.NotFoundException;
 import com.biography.course.exception.StatusCourseInvalidException;
+import com.biography.course.model.Status;
 import com.biography.course.model.course.CourseEntity;
 import com.biography.course.repository.CourseRepository;
 import com.biography.course.service.CourseService;
@@ -28,15 +29,16 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseDTO> searchAll() {
-        log.info("GET=gettingAllCourses - buscando todos os cursos");
+        log.info("M=searchAll - buscando todos os cursos");
         final List<CourseEntity> listCourses = courseRepository.findAll();
 
-        return CourseDTO.listCourseEntityToDTO(listCourses);
+        return CourseDTO.toListCourseDTO(listCourses);
     }
 
     @Override
     public List<CourseDTO> searchByName(final String name) {
-        log.info("GET=gettingCoursesByName - buscando cursos por nome");
+
+        log.info("M=searchByName, iniciando consulta por nome, name={}", name);
 
         return courseRepository.findAllByName(name)
                                .orElseThrow(() -> new NotFoundException("Nenhum curso encontrado") )
@@ -61,9 +63,10 @@ public class CourseServiceImpl implements CourseService {
         log.info("POST=creatingNewCourse - criando novo curso");
 
         courseValidator.validate(courseDTO.toEntity());
+
         final CourseEntity courseEntity = courseRepository.save(courseDTO.toEntity());
 
-        return courseEntity.toDTO();
+        return courseEntity.toCourseDTO();
     }
 
     @Override

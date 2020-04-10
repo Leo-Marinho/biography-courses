@@ -2,6 +2,7 @@ package com.biography.course.resource;
 
 import com.biography.course.dto.CourseDTO;
 import com.biography.course.dto.CourseStatusDTO;
+import com.biography.course.model.Status;
 import com.biography.course.resource.request.CourseRequest;
 import com.biography.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,11 @@ public class CourseResource {
 
     @GetMapping("/{name}")
     private List<CourseDTO> searchByName(@PathVariable final String name){
-
         return courseService.searchByName(name);
     }
 
     @GetMapping("/status/{status}")
     private List<CourseStatusDTO> searchByStatus(@PathVariable final String status) {
-
         return courseService.searchByStatus(status);
     }
 
@@ -42,7 +41,7 @@ public class CourseResource {
     }
 
     @PutMapping("/{id}")
-    private CourseDTO updateCourse(@PathVariable Long id, @Valid @RequestBody CourseRequest courseRequest){
+    private CourseDTO updateCourse(@PathVariable final Long id, @Valid @RequestBody final CourseRequest courseRequest){
 
         final CourseDTO courseDTO = courseRequest.toDTO();
 
@@ -50,7 +49,7 @@ public class CourseResource {
     }
 
     @DeleteMapping("/{id}")
-    private void deleteByid(@PathVariable Long id){
+    private void deleteById(@PathVariable final Long id){
 
         courseService.deleteById(id);
     }

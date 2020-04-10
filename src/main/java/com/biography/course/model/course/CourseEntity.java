@@ -18,7 +18,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "course")
 public class CourseEntity {
@@ -30,13 +29,13 @@ public class CourseEntity {
     @NotNull(message = "name is require")
     @NotBlank(message = "name is require")
     @NotEmpty(message = "name is require")
-    @Size(min = 3, max = 50 )
+    @Size(min = 3, max = 50)
     private String name;
 
     @NotNull(message = "description is require")
     @NotBlank(message = "description is require")
     @NotEmpty(message = "description is require")
-    @Size(min = 10, max = 200 )
+    @Size(min = 10, max = 200)
     private String description;
 
     @NotNull(message = "description is require")
@@ -57,15 +56,15 @@ public class CourseEntity {
     @Column(name = "updated_at")
     private Date dateUpdated;
 
-    public CourseEntity(final String name, final String description, final String url,final Status status) {
+    public CourseEntity(final String name, final String description, final String url, final Status status) {
         this.name = name;
         this.description = description;
         this.url = url;
         this.status = status;
     }
 
-    public CourseDTO toDTO() {
-        return new CourseDTO(name,description,url,status);
+    public CourseDTO toCourseDTO() {
+        return new CourseDTO(name, description, url, status);
     }
 
     public CourseEntity merge(final CourseDTO courseDTO) {

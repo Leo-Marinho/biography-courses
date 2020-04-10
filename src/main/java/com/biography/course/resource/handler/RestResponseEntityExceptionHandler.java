@@ -18,22 +18,27 @@ import java.util.Date;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public final ResponseEntity<Object> handleStatusNullInvalidExcepiton(final ConstraintViolationException ex, final WebRequest request){
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
+    public final ResponseEntity<Object> handleStatusNullInvalidExcepiton(final ConstraintViolationException ex,
+                                                                         final WebRequest request){
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),ex.getMessage(),request.getDescription(false));
 
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UrlExistException.class)
-    public final ResponseEntity<Object> handleUrlExistException(final UrlExistException ex, final WebRequest request){
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
+    public final ResponseEntity<Object> handleUrlExistException(final UrlExistException ex, final WebRequest request) {
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(), ex.getMessage(),request.getDescription(false));
 
         return new ResponseEntity(exceptionResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(StatusCourseInvalidException.class)
-    public final ResponseEntity<Object> handleStatusCourseInvalidException(final StatusCourseInvalidException ex, final WebRequest request){
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
+    public final ResponseEntity<Object> handleStatusCourseInvalidException(final StatusCourseInvalidException ex,
+                                                                           final WebRequest request) {
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

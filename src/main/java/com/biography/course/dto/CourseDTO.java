@@ -15,8 +15,11 @@ import java.util.stream.Collectors;
 public class CourseDTO {
 
     private String name;
+
     private String description;
+
     private String url;
+
     private Status status;
 
     public CourseDTO(final CourseEntity courseEntity) {
@@ -26,12 +29,12 @@ public class CourseDTO {
         this.status = courseEntity.getStatus();
     }
 
-    public static List<CourseDTO> listCourseEntityToDTO(final List<CourseEntity> courseEntityList){
+    public static List<CourseDTO> toListCourseDTO(final List<CourseEntity> courseEntityList){
         return courseEntityList.stream().map(CourseDTO::new).collect(Collectors.toList());
     }
 
     public CourseEntity toEntity() {
-        return new CourseEntity(name,description,url,status);
+        return new CourseEntity(name, description, url, status);
     }
 
 }
