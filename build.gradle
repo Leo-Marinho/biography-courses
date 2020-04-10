@@ -33,6 +33,8 @@ dependencies {
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	compile 'io.springfox:springfox-swagger2:2.9.2'
 	compile 'io.springfox:springfox-swagger-ui:2.9.2'
+	testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'
+	testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 }
 
 test {
