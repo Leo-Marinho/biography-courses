@@ -2,7 +2,9 @@ package com.biography.course.model.course;
 
 import com.biography.course.dto.CourseDTO;
 import com.biography.course.model.Status;
+import com.biography.course.resource.request.CourseRequest;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,9 +17,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+import static javax.persistence.EnumType.STRING;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "course")
 public class CourseEntity {
@@ -44,7 +49,7 @@ public class CourseEntity {
     @Size(min = 10, max = 150)
     private String url;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     @NotNull(message = "status is require")
     private Status status;
 

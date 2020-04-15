@@ -4,7 +4,6 @@ import com.biography.course.dto.CourseDTO;
 import com.biography.course.dto.CourseStatusDTO;
 import com.biography.course.exception.NotFoundException;
 import com.biography.course.exception.StatusCourseInvalidException;
-import com.biography.course.model.Status;
 import com.biography.course.model.course.CourseEntity;
 import com.biography.course.repository.CourseRepository;
 import com.biography.course.service.CourseService;
@@ -36,6 +35,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public CourseDTO searchById(final Long id) {
+        return findById(id).toCourseDTO();
+    }
+
+    @Override
     public List<CourseDTO> searchByName(final String name) {
 
         log.info("M=searchByName, iniciando consulta por nome, name={}", name);
@@ -62,7 +66,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO save(final CourseDTO courseDTO) {
         log.info("POST=creatingNewCourse - criando novo curso");
 
-        courseValidator.validate(courseDTO.toEntity());
+        this.courseValidator.validate(courseDTO.toEntity());
 
         final CourseEntity courseEntity = courseRepository.save(courseDTO.toEntity());
 
@@ -73,7 +77,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO update(final Long id,final CourseDTO courseDTO) {
         log.info("UPDATE=updatingCourse - Atualizando curso");
 
-        courseValidator.validate(courseDTO.toEntity());
+        this.courseValidator.validate(courseDTO.toEntity());
 
         return courseRepository.findById(id)
                                .map(CourseEntity -> CourseEntity.merge(courseDTO))
@@ -86,10 +90,13 @@ public class CourseServiceImpl implements CourseService {
     public void deleteById(final Long id) {
         log.info("DELETE=delletingCourseById - Deletando curso");
 
-        final CourseEntity courseEntity = courseRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Id Inexistente - verifique"));
+        final CourseEntity courseEntity = findById(id);
 
         courseRepository.delete(courseEntity);
     }
 
+    private CourseEntity findById(final Long id) {
+        return courseRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Id Inexistente - verifique"));
+    }
 }

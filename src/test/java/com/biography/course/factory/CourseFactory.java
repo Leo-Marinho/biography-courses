@@ -1,19 +1,24 @@
 package com.biography.course.factory;
 
-import com.biography.course.model.Status;
-import com.biography.course.resource.request.CourseRequest;
+import com.biography.course.model.course.CourseEntity;
 import org.springframework.stereotype.Component;
 
+import static com.biography.course.model.Status.CONCLUDED;
+
+
 @Component
-public class CourseFactory implements Factory<CourseRequest> {
+public class CourseFactory implements Factory<CourseEntity> {
 
     @Override
-    public CourseRequest createDefault() {
-        return CourseRequest.builder()
-                            .name("Rest Assured")
-                            .description("Testing course rest api with rest assured ")
-                            .url("https://cursos.alura.com.br/user/leomarinho-is/course/rest-assured/certificate")
-                            .status(Status.CONCLUDED)
-                            .build();
+    public CourseEntity createDefault() {
+        return CourseEntity.builder()
+                .name("Rest Assured")
+                .description("Testing course rest api with rest assured ")
+                .url("https://cursos.alura.com.br/user/leomarinho-is/casdadaourse/rest-assured/certificate")
+                .status(CONCLUDED)
+                .build();
     }
+
+
+
 }

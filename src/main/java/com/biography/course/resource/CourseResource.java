@@ -24,6 +24,11 @@ public class CourseResource {
         return courseService.searchAll();
     }
 
+    @GetMapping("/id/{id}")
+    private CourseDTO searchById(@PathVariable final Long id){
+        return courseService.searchById(id);
+    }
+
     @GetMapping("/{name}")
     private List<CourseDTO> searchByName(@PathVariable final String name){
         return courseService.searchByName(name);
